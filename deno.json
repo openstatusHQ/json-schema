@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts",
+    "generate-schema": "deno run -A main.ts"
+
+  },
+  "imports": {
+    "zod": "npm:zod@3.25.28"
+  }
+}
