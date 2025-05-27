@@ -36,13 +36,12 @@ const baseRequest = z.object({
 });
 
 const itemSchema = z.discriminatedUnion("kind", [
-  z.object({
-    ...baseRequest,
+baseRequest.extend({
     kind: z.literal("http"),
     request: httpRequestSchema,
   }),
-  z.object({
-    ...baseRequest,
+baseRequest.extend({
+    kind: z.literal("tcp"),
     request: tcpRequestSchema,
   }).meta({
     description: "TCP Request Schema",
