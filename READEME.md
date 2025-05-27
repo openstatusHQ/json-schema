@@ -1,0 +1,1 @@
+# OpenStatus Synthetic Monitoring Schema

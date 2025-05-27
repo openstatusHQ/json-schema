@@ -1,5 +1,43 @@
 import { z } from "zod/v4";
 
+ const regions = [
+  "ams",
+  "arn",
+  "atl",
+  "bog",
+  "bom",
+  "bos",
+  "cdg",
+  "den",
+  "dfw",
+  "ewr",
+  "eze",
+  "fra",
+  "gdl",
+  "gig",
+  "gru",
+  "hkg",
+  "iad",
+  "jnb",
+  "lax",
+  "lhr",
+  "mad",
+  "mia",
+  "nrt",
+  "ord",
+  "otp",
+  "phx",
+  "qro",
+  "scl",
+  "sjc",
+  "sea",
+  "sin",
+  "syd",
+  "waw",
+  "yul",
+  "yyz",
+] as const;
+
 export const schema = z.object({
   name: z.string(),
 }).meta({
@@ -28,16 +66,66 @@ const tcpRequestSchema = z.object({
   }),
 });
 
+
+ const numberCompare = z.enum(["eq", "not_eq", "gt", "gte", "lt", "lte"]);
+
+ const stringCompare = z.enum([
+   "contains",
+   "not_contains",
+   "eq",
+   "not_eq",
+   "empty",
+   "not_empty",
+   "gt",
+   "gte",
+   "lt",
+   "lte",
+ ]);
+
+
+const statusCodeAssertion = z
+  .object({
+    kind: z.literal("statusCode"),
+    compare: numberCompare,
+    target: z.number(),
+  })
+
+const headerAssertion = z
+  .object({
+    kind: z.literal("header"),
+    compare: stringCompare,
+    key: z.string(),
+    target: z.string(),
+  })
+
+const textBodyAssertion = z
+  .object({
+    kind: z.literal("textBody"),
+    compare: stringCompare,
+    target: z.string(),
+  })
+
+const assertionsSchema = z.discriminatedUnion("kind", [
+  statusCodeAssertion,
+  headerAssertion,
+  textBodyAssertion,
+]);
+
 const baseRequest = z.object({
   name: z.string(),
-  retry: z.number().max(10),
-  kind: z.literal("tcp"),
+  description: z.string().optional(),
+  retry: z.number().max(10).min(1).optional(),
+  degradedAfter: z.number().min(0).optional(),
+  timeout: z.number().min(0).optional(),
   frequency: z.enum(["30s", "1m", "5m", "10m", "30m", "1h"]),
+  active: z.boolean().optional(),
+  regions: z.array(z.enum(regions).or(z.literal("private"))),
 });
 
 const itemSchema = z.discriminatedUnion("kind", [
 baseRequest.extend({
     kind: z.literal("http"),
+    assertions: z.array(assertionsSchema).optional(),
     request: httpRequestSchema,
   }),
 baseRequest.extend({
