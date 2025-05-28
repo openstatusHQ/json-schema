@@ -1,0 +1,378 @@
+{
+  "type": "object",
+  "propertyNames": {
+    "type": "string"
+  },
+  "additionalProperties": {
+    "anyOf": [
+      {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "retry": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "degradedAfter": {
+            "type": "number",
+            "minimum": 0
+          },
+          "timeout": {
+            "type": "number",
+            "minimum": 0
+          },
+          "frequency": {
+            "enum": [
+              "30s",
+              "1m",
+              "5m",
+              "10m",
+              "30m",
+              "1h"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "regions": {
+            "description": "Regions to run the request in",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "ams",
+                    "arn",
+                    "atl",
+                    "bog",
+                    "bom",
+                    "bos",
+                    "cdg",
+                    "den",
+                    "dfw",
+                    "ewr",
+                    "eze",
+                    "fra",
+                    "gdl",
+                    "gig",
+                    "gru",
+                    "hkg",
+                    "iad",
+                    "jnb",
+                    "lax",
+                    "lhr",
+                    "mad",
+                    "mia",
+                    "nrt",
+                    "ord",
+                    "otp",
+                    "phx",
+                    "qro",
+                    "scl",
+                    "sjc",
+                    "sea",
+                    "sin",
+                    "syd",
+                    "waw",
+                    "yul",
+                    "yyz"
+                  ]
+                },
+                {
+                  "const": "private"
+                }
+              ]
+            }
+          },
+          "kind": {
+            "const": "http"
+          },
+          "assertions": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "statusCode"
+                    },
+                    "compare": {
+                      "enum": [
+                        "eq",
+                        "not_eq",
+                        "gt",
+                        "gte",
+                        "lt",
+                        "lte"
+                      ]
+                    },
+                    "target": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "compare",
+                    "target"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "header"
+                    },
+                    "compare": {
+                      "enum": [
+                        "contains",
+                        "not_contains",
+                        "eq",
+                        "not_eq",
+                        "empty",
+                        "not_empty",
+                        "gt",
+                        "gte",
+                        "lt",
+                        "lte"
+                      ]
+                    },
+                    "key": {
+                      "type": "string"
+                    },
+                    "target": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "compare",
+                    "key",
+                    "target"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "textBody"
+                    },
+                    "compare": {
+                      "enum": [
+                        "contains",
+                        "not_contains",
+                        "eq",
+                        "not_eq",
+                        "empty",
+                        "not_empty",
+                        "gt",
+                        "gte",
+                        "lt",
+                        "lte"
+                      ]
+                    },
+                    "target": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "compare",
+                    "target"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "request": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "enum": [
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE",
+                  "PATCH",
+                  "HEAD",
+                  "OPTIONS"
+                ]
+              },
+              "url": {
+                "description": "URL to request",
+                "examples": [
+                  "https://openstat.us",
+                  "https://www.openstatus.dev"
+                ],
+                "type": "string",
+                "format": "uri"
+              },
+              "headers": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "body": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "method",
+              "url",
+              "headers"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "name",
+          "frequency",
+          "regions",
+          "kind",
+          "request"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "description": "TCP Request Schema",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "retry": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "degradedAfter": {
+            "type": "number",
+            "minimum": 0
+          },
+          "timeout": {
+            "type": "number",
+            "minimum": 0
+          },
+          "frequency": {
+            "enum": [
+              "30s",
+              "1m",
+              "5m",
+              "10m",
+              "30m",
+              "1h"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "regions": {
+            "description": "Regions to run the request in",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "ams",
+                    "arn",
+                    "atl",
+                    "bog",
+                    "bom",
+                    "bos",
+                    "cdg",
+                    "den",
+                    "dfw",
+                    "ewr",
+                    "eze",
+                    "fra",
+                    "gdl",
+                    "gig",
+                    "gru",
+                    "hkg",
+                    "iad",
+                    "jnb",
+                    "lax",
+                    "lhr",
+                    "mad",
+                    "mia",
+                    "nrt",
+                    "ord",
+                    "otp",
+                    "phx",
+                    "qro",
+                    "scl",
+                    "sjc",
+                    "sea",
+                    "sin",
+                    "syd",
+                    "waw",
+                    "yul",
+                    "yyz"
+                  ]
+                },
+                {
+                  "const": "private"
+                }
+              ]
+            }
+          },
+          "kind": {
+            "const": "tcp"
+          },
+          "request": {
+            "type": "object",
+            "properties": {
+              "host": {
+                "examples": [
+                  "example.com",
+                  "localhost"
+                ],
+                "description": "Host to connect to",
+                "type": "string"
+              },
+              "port": {
+                "description": "Port to connect to",
+                "examples": [
+                  80,
+                  443,
+                  1337
+                ],
+                "type": "number"
+              }
+            },
+            "required": [
+              "host",
+              "port"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "name",
+          "frequency",
+          "regions",
+          "kind",
+          "request"
+        ],
+        "additionalProperties": false
+      }
+    ]
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

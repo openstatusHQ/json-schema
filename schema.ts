@@ -119,7 +119,9 @@ const baseRequest = z.object({
   timeout: z.number().min(0).optional(),
   frequency: z.enum(["30s", "1m", "5m", "10m", "30m", "1h"]),
   active: z.boolean().optional(),
-  regions: z.array(z.enum(regions).or(z.literal("private"))),
+  regions: z.array(z.enum(regions).or(z.literal("private"))).meta({
+    description: "Regions to run the request in",
+  }),
 });
 
 const itemSchema = z.discriminatedUnion("kind", [
