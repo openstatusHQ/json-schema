@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/openstatusHQ/json-schema/refs/heads/wip/1.0.0.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/openstatusHQ/json-schema/refs/heads/main/1.0.0.json
 
 monitor1:
   name: "Test"

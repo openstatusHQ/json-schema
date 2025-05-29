@@ -6,4 +6,4 @@ const jsonSchema = z.toJSONSchema(fullSchema, {
   target: "draft-7",
 });
 
-await Deno.writeTextFile("1.0.0.json", JSON.stringify(jsonSchema, null, 2));
+await Deno.writeTextFile("schema.json", JSON.stringify(jsonSchema, null, 2));
