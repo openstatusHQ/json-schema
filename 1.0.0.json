@@ -6,24 +6,43 @@
   "additionalProperties": {
     "anyOf": [
       {
+        "description": "HTTP Request Schema",
         "type": "object",
         "properties": {
           "name": {
+            "description": "Name of the monitor",
             "type": "string"
           },
           "description": {
             "type": "string"
           },
           "retry": {
+            "description": "Number of retries to attempt",
+            "examples": [
+              1,
+              3,
+              5
+            ],
+            "default": 3,
             "type": "number",
             "minimum": 1,
             "maximum": 10
           },
           "degradedAfter": {
+            "description": "Time in milliseconds to wait before marking the request as degraded",
+            "examples": [
+              30000
+            ],
+            "default": 30000,
             "type": "number",
             "minimum": 0
           },
           "timeout": {
+            "description": "Time in milliseconds to wait before marking the request as timed out",
+            "examples": [
+              45000
+            ],
+            "default": 45000,
             "type": "number",
             "minimum": 0
           },
@@ -38,6 +57,13 @@
             ]
           },
           "active": {
+            "description": "Whether the monitor is active",
+            "default": false,
+            "type": "boolean"
+          },
+          "public": {
+            "description": "Whether the monitor is public",
+            "default": false,
             "type": "boolean"
           },
           "regions": {
@@ -94,16 +120,43 @@
             "const": "http"
           },
           "assertions": {
+            "description": "Assertions to run on the response",
             "type": "array",
             "items": {
               "anyOf": [
                 {
+                  "examples": [
+                    {
+                      "kind": "statusCode",
+                      "compare": "eq",
+                      "target": 200
+                    },
+                    {
+                      "kind": "statusCode",
+                      "compare": "not_eq",
+                      "target": 404
+                    },
+                    {
+                      "kind": "statusCode",
+                      "compare": "gt",
+                      "target": 300
+                    }
+                  ],
                   "type": "object",
                   "properties": {
                     "kind": {
                       "const": "statusCode"
                     },
                     "compare": {
+                      "description": "Comparison operator",
+                      "examples": [
+                        "eq",
+                        "not_eq",
+                        "gt",
+                        "gte",
+                        "lt",
+                        "lte"
+                      ],
                       "enum": [
                         "eq",
                         "not_eq",
@@ -114,6 +167,13 @@
                       ]
                     },
                     "target": {
+                      "description": "Status code to assert",
+                      "examples": [
+                        200,
+                        404,
+                        418,
+                        500
+                      ],
                       "type": "number"
                     }
                   },
@@ -131,6 +191,13 @@
                       "const": "header"
                     },
                     "compare": {
+                      "description": "Comparison operator",
+                      "examples": [
+                        "eq",
+                        "not_eq",
+                        "contains",
+                        "not_contains"
+                      ],
                       "enum": [
                         "contains",
                         "not_contains",
@@ -145,9 +212,19 @@
                       ]
                     },
                     "key": {
+                      "description": "Header key to assert",
+                      "examples": [
+                        "Content-Type",
+                        "X-Request-ID"
+                      ],
                       "type": "string"
                     },
                     "target": {
+                      "description": "Header value to assert",
+                      "examples": [
+                        "application/json",
+                        "text/html"
+                      ],
                       "type": "string"
                     }
                   },
@@ -166,6 +243,13 @@
                       "const": "textBody"
                     },
                     "compare": {
+                      "description": "Comparison operator",
+                      "examples": [
+                        "eq",
+                        "not_eq",
+                        "contains",
+                        "not_contains"
+                      ],
                       "enum": [
                         "contains",
                         "not_contains",
@@ -180,6 +264,11 @@
                       ]
                     },
                     "target": {
+                      "description": "Text body to assert",
+                      "examples": [
+                        "Hello, world!",
+                        "404 Not Found"
+                      ],
                       "type": "string"
                     }
                   },
@@ -194,6 +283,7 @@
             }
           },
           "request": {
+            "description": "The HTTP Request we are sending",
             "type": "object",
             "properties": {
               "method": {
@@ -226,6 +316,11 @@
                 }
               },
               "body": {
+                "description": "Body to send with the request",
+                "examples": [
+                  "{ \"key\": \"value\" }",
+                  "Hello World"
+                ],
                 "type": "string"
               }
             },
@@ -251,21 +346,39 @@
         "type": "object",
         "properties": {
           "name": {
+            "description": "Name of the monitor",
             "type": "string"
           },
           "description": {
             "type": "string"
           },
           "retry": {
+            "description": "Number of retries to attempt",
+            "examples": [
+              1,
+              3,
+              5
+            ],
+            "default": 3,
             "type": "number",
             "minimum": 1,
             "maximum": 10
           },
           "degradedAfter": {
+            "description": "Time in milliseconds to wait before marking the request as degraded",
+            "examples": [
+              30000
+            ],
+            "default": 30000,
             "type": "number",
             "minimum": 0
           },
           "timeout": {
+            "description": "Time in milliseconds to wait before marking the request as timed out",
+            "examples": [
+              45000
+            ],
+            "default": 45000,
             "type": "number",
             "minimum": 0
           },
@@ -280,6 +393,13 @@
             ]
           },
           "active": {
+            "description": "Whether the monitor is active",
+            "default": false,
+            "type": "boolean"
+          },
+          "public": {
+            "description": "Whether the monitor is public",
+            "default": false,
             "type": "boolean"
           },
           "regions": {
