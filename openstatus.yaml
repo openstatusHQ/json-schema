@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/openstatusHQ/json-schema/refs/heads/main/1.0.0.json
+# yaml-language-server: $schema=https://www.openstatus.dev/schema.json
 
 monitor1:
   name: "Test"
@@ -13,3 +13,7 @@ monitor1:
     method: GET
     headers:
       User-Agent: OpenStatus
+  assertions:
+    - kind: statusCode
+      compare: eq
+      target: 200
