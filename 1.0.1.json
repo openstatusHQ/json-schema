@@ -14,6 +14,11 @@
             "type": "string"
           },
           "description": {
+            "description": "Description of the monitor",
+            "examples": [
+              "Monitor for homepage",
+              "Monitor for API endpoint"
+            ],
             "type": "string"
           },
           "retry": {
@@ -307,6 +312,15 @@
                 "format": "uri"
               },
               "headers": {
+                "description": "Headers to send with the request",
+                "examples": [
+                  {
+                    "Content-Type": "application/json"
+                  },
+                  {
+                    "Authorization": "Bearer token"
+                  }
+                ],
                 "type": "object",
                 "propertyNames": {
                   "type": "string"
@@ -349,6 +363,11 @@
             "type": "string"
           },
           "description": {
+            "description": "Description of the monitor",
+            "examples": [
+              "Monitor for homepage",
+              "Monitor for API endpoint"
+            ],
             "type": "string"
           },
           "retry": {
