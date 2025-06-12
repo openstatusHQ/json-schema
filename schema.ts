@@ -51,7 +51,7 @@ const httpRequestSchema = z.object({
     description: "URL to request",
     examples: ["https://openstat.us", "https://www.openstatus.dev"],
   }),
-  headers: z.record(z.string(), z.string()),
+  headers: z.record(z.string(), z.string()).optional(),
   body: z.string().optional().meta({
     description: "Body to send with the request",
     examples: ['{ "key": "value" }', "Hello World"],
