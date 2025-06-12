@@ -42,7 +42,7 @@ export const schema = z.object({
   name: z.string(),
 }).meta({
   description: "OpenStatus Synthetic Monitoring Schema",
-  version: "1.0.0",
+  version: "1.0.1",
 });
 
 const httpRequestSchema = z.object({
@@ -51,7 +51,10 @@ const httpRequestSchema = z.object({
     description: "URL to request",
     examples: ["https://openstat.us", "https://www.openstatus.dev"],
   }),
-  headers: z.record(z.string(), z.string()).optional(),
+  headers: z.record(z.string(), z.string()).optional().meta({
+    description: "Headers to send with the request",
+    examples: [{ "Content-Type": "application/json" }, { "Authorization": "Bearer token" }],
+  }),
   body: z.string().optional().meta({
     description: "Body to send with the request",
     examples: ['{ "key": "value" }', "Hello World"],
@@ -155,7 +158,10 @@ const baseRequest = z.object({
   name: z.string().meta({
     description: "Name of the monitor",
   }),
-  description: z.string().optional(),
+  description: z.string().optional().meta({
+    description: "Description of the monitor",
+    examples: ["Monitor for homepage", "Monitor for API endpoint"],
+  }),
   retry: z.number().max(10).min(1).optional().meta({
     description: "Number of retries to attempt",
     examples: [1, 3, 5],
