@@ -42,7 +42,7 @@ export const schema = z.object({
   name: z.string(),
 }).meta({
   description: "OpenStatus Synthetic Monitoring Schema",
-  version: "1.0.1",
+  version: "1.0.2",
 });
 
 const httpRequestSchema = z.object({
@@ -190,6 +190,16 @@ const baseRequest = z.object({
   }),
   regions: z.array(z.enum(regions).or(z.literal("private"))).meta({
     description: "Regions to run the request in",
+  }),
+  otlp: z.object({
+    endpoint: z.url().optional().meta({
+      description: "Endpoint to send telemetry data to",
+    }),
+    headers: z.record(z.string(), z.string()).optional().meta({
+      description: "Headers to send with telemetry data",
+    }),
+  }).optional().meta({
+    description: "OTLP Configuration",
   }),
 });
 
