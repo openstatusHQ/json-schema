@@ -3,16 +3,18 @@
 monitor1:
   name: "Test"
   description: "This is a test"
-  frequency: "1m"
+  frequency: 10m
   active: true
   regions: ["iad"]
   retry: 3
   kind: http
+  openTelemetry:
+    endpoint: https://otel.openstatus.dev
+    headers:
+      Authorization: Bearer <token>
   request:
     url: https://openstat.us
     method: GET
-    headers:
-      User-Agent: OpenStatus
   assertions:
     - kind: statusCode
       compare: eq
