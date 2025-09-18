@@ -59,6 +59,11 @@ const httpRequestSchema = z.object({
     description: "Body to send with the request",
     examples: ['{ "key": "value" }', "Hello World"],
   }),
+  followRedirects: z.boolean().optional().meta({
+    description: "Whether to follow redirects",
+    examples: [true, false],
+    default: true,
+  }),
 });
 
 const tcpRequestSchema = z.object({
