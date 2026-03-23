@@ -1,11 +1,11 @@
 import { z } from "zod/v4";
 
 const regions = [
+  // Fly regions
   "ams",
   "arn",
   "bom",
   "cdg",
-  "den",
   "dfw",
   "ewr",
   "fra",
@@ -20,23 +20,25 @@ const regions = [
   "sin",
   "syd",
   "yyz",
+  // Koyeb regions
   "koyeb_fra",
-  "koyeb_was",
-  "koyeb_sin",
-  "koyeb_tyo",
   "koyeb_par",
   "koyeb_sfo",
-  "railway_europe-west4-drams3a",
-  "railway_us-east4-eqdc4a",
-  "railway_asia-southeast1-eqsg3a",
+  "koyeb_sin",
+  "koyeb_tyo",
+  "koyeb_was",
+  // Railway regions
   "railway_us-west2",
+  "railway_us-east4-eqdc4a",
+  "railway_europe-west4-drams3a",
+  "railway_asia-southeast1-eqsg3a",
 ] as const;
 
 export const schema = z.object({
   name: z.string(),
 }).meta({
   description: "OpenStatus Synthetic Monitoring Schema",
-  version: "1.0.2",
+  version: "1.0.6",
 });
 
 const httpRequestSchema = z.object({
